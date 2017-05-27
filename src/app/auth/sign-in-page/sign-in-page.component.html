@@ -11,4 +11,8 @@ Sign in page
     [disabled]="(authState$ | async).signInStatus === ProcessStatus.InProgress">
     Sign in
   </button>
+
+  <div>
+    Don't have an account? <a [routerLink]="['/auth/sign-up']">Sign up!</a>
+  </div>
 </form>

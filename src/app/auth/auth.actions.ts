@@ -10,9 +10,9 @@ export const SIGN_IN = '[Authentication] Sign in';
 export const SIGN_IN_SUCCESS = '[Authentication] Sign in success';
 export const SIGN_IN_ERROR = '[Authentication] Sign in error';
 
-export const SIGN_UP = '[Authentication] Sign on';
-export const SIGN_UP_SUCCESS = '[Authentication] Sign on success';
-export const SIGN_UP_ERROR = '[Authentication] Sign on error';
+export const SIGN_UP = '[Authentication] Sign up';
+export const SIGN_UP_SUCCESS = '[Authentication] Sign up success';
+export const SIGN_UP_ERROR = '[Authentication] Sign up error';
 
 export const LOGOUT = '[Authentication] Logout';
 
