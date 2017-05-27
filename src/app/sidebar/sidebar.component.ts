@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 
 import { AuthState } from '../auth/auth.reducer';
 import * as AuthActions from '../auth/auth.actions';
@@ -20,7 +21,8 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private _authStore: Store<AuthState>,
-    private _uiStore: Store<UIState>
+    private _uiStore: Store<UIState>,
+    private _router: Router
   ) {
     this.authState$ = _authStore.select('auth');
     this.uiState$ = _uiStore.select('ui');
@@ -35,5 +37,6 @@ export class SidebarComponent implements OnInit {
   logout() {
     this._authStore.dispatch(new AuthActions.LogoutAction());
     this.hideSidebar();
+    this._router.navigateByUrl('/auth/sign-in');
   }
 }
