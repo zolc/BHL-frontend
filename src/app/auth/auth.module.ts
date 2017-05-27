@@ -6,6 +6,8 @@ import { SharedModule } from '../shared/shared.module';
 import { SignInPageComponent } from './sign-in-page/sign-in-page.component';
 import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
 
+import { AuthGuard } from './auth.guard';
+
 const routes: Routes = [
   { path: 'auth', children: [
     { path: 'sign-in', component: SignInPageComponent },
@@ -22,6 +24,9 @@ const routes: Routes = [
   declarations: [
     SignInPageComponent,
     SignUpPageComponent
+  ],
+  providers: [
+    AuthGuard
   ]
 })
 export class AuthModule { }
