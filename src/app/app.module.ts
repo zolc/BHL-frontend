@@ -18,6 +18,20 @@ import { AuthModule } from './auth/auth.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+
+import { ApolloClient, createNetworkInterface } from 'apollo-client';
+import { ApolloModule } from 'apollo-angular';
+
+const client = new ApolloClient({
+  networkInterface: createNetworkInterface({
+    uri: 'http://localhost:4200/api/graphql'
+  }),
+});
+
+export function provideClient(): ApolloClient {
+  return client;
+}
+
 @NgModule({
   declarations: [
     AppComponent
@@ -26,6 +40,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     SharedModule,
     AuthModule,
+    ApolloModule.forRoot(provideClient),
     AppRoutingModule,
     StoreModule.provideStore({
       auth: authReducer
