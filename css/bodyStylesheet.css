@@ -23,7 +23,19 @@ body {
 	
 	background-color: #FC8A15;
 	color: #F6F6F6;
-	width: 8em;
-	height: 2em;
+	width: 9em;
+	height: 3em;
 }
 
+.card {
+	color: #009378
+}
+
+a, a:hover {
+	text-decoration: none;
+	color: #009378
+}
+
+.list-group-item.active {
+	    background-color: #FC8A15;
+}
