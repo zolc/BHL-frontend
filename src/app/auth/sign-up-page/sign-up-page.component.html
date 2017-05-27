@@ -1,4 +1,8 @@
-<h2>Sign up</h2>
+<div class="card">
+    <div class="card-block">
+      <h2 class="card-text text-center">Don't have an account? <strong>Sign Up </strong> </h2>
+    </div>
+    </div>
 
 <div [ngSwitch]="(authState$ | async).signUpStatus">
   <div *ngSwitchCase="ProcessStatus.Error">Error while signing up</div>
@@ -8,44 +12,30 @@
   </div>
 </div>
 
-<form [formGroup]="signUpForm" novalidate (ngSubmit)="signUp()">
-  <div class="form-group">
-    <label>
-      Username:
-      <input class="form-control" formControlName="username">
-    </label>
-  </div>
-  <div class="form-group">
-    <label>
-      Password:
-      <input class="form-control" formControlName="password" type="password">
-    </label>
-  </div>
-  <div class="form-group">
-    <label>
-      First name:
-      <input class="form-control" formControlName="first_name">
-    </label>
-  </div>
-  <div class="form-group">
-    <label>
-      Last name:
-      <input class="form-control" formControlName="last_name">
-    </label>
-  </div>
-  <div class="form-group">
-    <label>
-      E-mail:
-      <input class="form-control" formControlName="email">
-    </label>
-  </div>
-  <div class="form-group">
-    <label>
-      Phone:
-      <input class="form-control" formControlName="phone">
-    </label>
-  </div>
-  <div>
-    <button type="submit" [disabled]="(authState$ | async).signUpStatus === ProcessStatus.InProgress">Sign up</button>
-  </div>
-</form>
+ <form class="mt-5 col-4 offset-4" [formGroup]="signUpForm" novalidate (ngSubmit)="signUp()">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" >
+        </div>
+         <div class="form-group">
+            <label for="password">Password</label>
+            <input type="text" class="form-control" id="password" name="password" >
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email" >
+        </div>
+        <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Optional" >
+        </div>
+        <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Optional">
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="Optional">
+        </div>
+            <button type="submit" class="btn btn-primary" [disabled]="(authState$ | async).signUpStatus === ProcessStatus.InProgress">Create account</button>
+  </form>
