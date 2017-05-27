@@ -5,12 +5,15 @@ import { Observable } from 'rxjs/Observable';
 import * as DashboardActions from './dashboard.actions';
 import { DashboardState } from './dashboard.reducer';
 
+import { ProcessStatus } from '../shared/process-status.enum';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'dashboard.component.html'
 })
 
 export class DashboardComponent implements OnInit {
+  ProcessStatus = ProcessStatus;
   dashboardState$: Observable<DashboardState>;
 
   constructor(private _dashboardStore: Store<DashboardState>) {

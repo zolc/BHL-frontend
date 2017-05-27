@@ -1,3 +1,10 @@
-dashboard component
+<h2>Dashboard</h2>
 
-{{ (dashboardState$ | async) | json }}
+<div [ngSwitch]="(dashboardState$ | async).loadStatus">
+  <div *ngSwitchCase="ProcessStatus.InProgress">Downloading tasks</div>
+  <div *ngSwitchCase="ProcessStatus.Error">Error while downloading tasks</div>
+  <div *ngSwitchCase="ProcessStatus.Success">
+    {{ (dashboardState$ | async) | json }}
+  </div>
+</div>
+
