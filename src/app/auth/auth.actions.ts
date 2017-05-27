@@ -1,6 +1,8 @@
 import { Action } from '@ngrx/store';
 import { Errors } from '../shared/errors';
 
+import { User } from '../models/user';
+
 import { SignInCredentials } from './sign-in-credentials';
 import { SignUpCredentials } from './sign-up-credentials';
 
@@ -14,7 +16,12 @@ export const SIGN_UP_ERROR = '[Authentication] Sign on error';
 
 export const LOGOUT = '[Authentication] Logout';
 
-export const LOAD_LOCAL_STORAGE = '[Authentication] Loading from local storage';
+export const LOAD_LOCAL_STORAGE = '[Authentication] Load from local storage';
+
+export const FETCH_SELF_DATA = '[Authentication] Fetch self data';
+export const FETCH_SELF_DATA_SUCCESS = '[Authentication] Fetch self data success';
+
+
 
 export class SignInAction implements Action {
   readonly type = SIGN_IN;
@@ -58,6 +65,18 @@ export class LoadLocalStorageAction implements Action {
   readonly type = LOAD_LOCAL_STORAGE;
 }
 
+export class FetchSelfDataAction implements Action {
+  readonly type = FETCH_SELF_DATA;
+
+  constructor(public payload: string) { }
+}
+
+export class FetchSelfDataSuccessAction implements Action {
+  readonly type = FETCH_SELF_DATA_SUCCESS;
+
+  constructor(public payload: User) { }
+}
+
 export type Actions
   = SignInAction
   | SignInSuccessAction
@@ -66,4 +85,6 @@ export type Actions
   | SignUpSuccessAction
   | SignUpErrorAction
   | LogoutAction
-  | LoadLocalStorageAction;
+  | LoadLocalStorageAction
+  | FetchSelfDataAction
+  | FetchSelfDataSuccessAction;

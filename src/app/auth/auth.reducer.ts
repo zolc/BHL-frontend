@@ -5,16 +5,19 @@ import { environment } from '../../environments/environment';
 
 import { Errors } from '../shared/errors';
 import { ProcessStatus } from '../shared/process-status.enum';
+import { User } from '../models/user';
 
 export interface AuthState {
   authenticated: boolean;
-  accessToken: boolean;
+  accessToken: string;
 
   signInStatus: ProcessStatus;
   signInErrors: Errors;
 
   signUpStatus: ProcessStatus;
   signUpErrors: Errors;
+
+  userData: User;
 }
 
 const initialState: AuthState = {
@@ -25,7 +28,9 @@ const initialState: AuthState = {
   signInErrors: null,
 
   signUpStatus: ProcessStatus.Idle,
-  signUpErrors: null
+  signUpErrors: null,
+
+  userData: null
 };
 
 export function authReducer(state = initialState, action: AuthActions.Actions): AuthState {
@@ -82,6 +87,11 @@ export function authReducer(state = initialState, action: AuthActions.Actions): 
       return Object.assign({}, state, {
         accessToken: accessToken,
         authenticated: !!accessToken
+      });
+
+    case AuthActions.FETCH_SELF_DATA_SUCCESS:
+      return Object.assign({}, state, {
+        userData: action.payload
       });
 
     default:

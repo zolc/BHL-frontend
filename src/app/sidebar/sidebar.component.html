@@ -12,7 +12,10 @@
 
   <div *ngIf="(authState$ | async).authenticated">
     <p class="mt-3 ">Logged as:</p>
-    <p class="mb-5">Grzegorz "Gelio" Rozdzialik</p>
+    <p class="mb-5">
+      {{ (authState$ | async).userData?.first_name }}
+      {{ (authState$ | async).userData?.last_name }}
+    </p>
 
     <ul class="list-group w-100">
       <li class="list-group-item active" (click)="hideSidebar()">My groups</li>

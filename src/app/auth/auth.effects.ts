@@ -1,18 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Action } from '@ngrx/store';
+import { ApolloQueryResult } from 'apollo-client';
+import { Action, Store } from '@ngrx/store';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/empty';
+import 'rxjs/add/observable/from';
+import 'rxjs/add/operator/mergeMap';
 
 import gql from 'graphql-tag';
 
 import * as AuthActions from '../auth/auth.actions';
+import { AuthState } from '../auth/auth.reducer';
 import { SignInCredentials } from './sign-in-credentials';
 import { SignUpCredentials } from './sign-up-credentials';
+
+import { User } from '../models/user';
+
+import { environment } from '../../environments/environment';
 
 const signIn = gql`
   mutation SignIn($username: String!, $password: String!) {
@@ -31,8 +40,25 @@ const signUp = gql`
   }
 `;
 
+
+const fetchSelfInfo = gql`
+  mutation SelfInfo($token: String!) {
+    SelfInfo(token: $token) {
+      user {
+        username
+        email
+        first_name
+        last_name
+        phone
+      }
+    }
+  }
+`;
+
 @Injectable()
 export class AuthEffects {
+  private _authState: AuthState;
+
   @Effect()
   signIn$: Observable<Action> = this.actions$
     .ofType(AuthActions.SIGN_IN)
@@ -42,24 +68,57 @@ export class AuthEffects {
         mutation: signIn,
         variables: credentials
       })
-        .catch(() => {
-          return Observable.of(new AuthActions.SignInErrorAction({
+        .catch(() =>
+          Observable.of(new AuthActions.SignInErrorAction({
             http: 'http error'
-          }));
-        });
+          }))
+        );
     })
-    .map(response => {
+    .mergeMap<any, Action>(response => {
       if (response instanceof AuthActions.SignInErrorAction) {
-        return response;
+        return Observable.from([response]);
       }
 
       const data = response.data['SignIn'];
 
       if (!data['success']) {
-        return new AuthActions.SignInErrorAction({ 'unknown': ''  });
+        return Observable.from([new AuthActions.SignInErrorAction({ 'unknown': ''  })]);
       } else {
-        return new AuthActions.SignInSuccessAction(data['token']);
+        return Observable.from([
+          new AuthActions.SignInSuccessAction(data['token']),
+          new AuthActions.FetchSelfDataAction(data['token'])
+        ]);
       }
+    });
+
+  @Effect()
+  loadLocalData$: Observable<Action> = this.actions$
+    .ofType(AuthActions.LOAD_LOCAL_STORAGE)
+    .switchMap(() => {
+      const accessToken = localStorage.getItem(environment.localStorage.accessTokenKey);
+      if (accessToken) {
+        return Observable.of(new AuthActions.FetchSelfDataAction(accessToken));
+      } else {
+        return Observable.empty();
+      }
+    });
+
+  @Effect()
+  fetchSelfData$: Observable<Action> = this.actions$
+    .ofType(AuthActions.FETCH_SELF_DATA)
+    .map(toPayload)
+    .switchMap((token: string) => {
+      return this.apollo.mutate({
+        mutation: fetchSelfInfo,
+        variables: {
+          token: token
+        }
+      })
+        .catch(() => Observable.empty());
+    })
+    .map((response: ApolloQueryResult<{}>) => {
+      const data = response.data['SelfInfo'];
+      return new AuthActions.FetchSelfDataSuccessAction(data['user']);
     });
 
   @Effect()
@@ -92,5 +151,9 @@ export class AuthEffects {
     });
 
 
-  constructor(private actions$: Actions, private apollo: Apollo) { }
+  constructor(private actions$: Actions, private apollo: Apollo, private _authStore: Store<AuthState>) {
+    this._authStore.subscribe(state => {
+      this._authState = state;
+    });
+  }
 }
