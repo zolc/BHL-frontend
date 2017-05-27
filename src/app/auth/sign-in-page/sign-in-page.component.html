@@ -1,4 +1,9 @@
 Sign in page
+
+<div *ngIf="(authState$ | async).signInStatus === ProcessStatus.Error">
+   Error while signing up
+</div>
+
 <form>
   <div>
     Username: <input type="text" [(ngModel)]="username" name="username">
