@@ -53,7 +53,7 @@ export class AuthEffects {
         return response;
       }
 
-      const data = response.data;
+      const data = response.data['SignIn'];
 
       if (!data['success']) {
         return new AuthActions.SignInErrorAction({ 'unknown': ''  });
@@ -82,7 +82,7 @@ export class AuthEffects {
         return response;
       }
 
-      const data = response.data;
+      const data = response.data['SignUp'];
 
       if (!data['success']) {
         return new AuthActions.SignUpErrorAction({ 'unknown': '' });
