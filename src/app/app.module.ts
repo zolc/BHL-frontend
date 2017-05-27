@@ -30,7 +30,7 @@ import { ApolloModule } from 'apollo-angular';
 
 const client = new ApolloClient({
   networkInterface: createNetworkInterface({
-    uri: 'http://localhost:4200/api/graphql'
+    uri: 'http://192.168.99.100:4200/api/graphql'
   }),
 });
 
