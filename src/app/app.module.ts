@@ -22,6 +22,8 @@ import { AppComponent } from './app.component';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 
+import { DashboardModule } from './dashboard/dashboard.module';
+
 
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
 import { ApolloModule } from 'apollo-angular';
@@ -45,6 +47,7 @@ export function provideClient(): ApolloClient {
     BrowserModule,
     SharedModule,
     AuthModule,
+    DashboardModule,
     ApolloModule.forRoot(provideClient),
     AppRoutingModule,
     StoreModule.provideStore({
