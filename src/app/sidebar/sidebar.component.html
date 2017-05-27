@@ -1,15 +1,28 @@
 <div class="sidebar-wrapper" [class.sidebar-hidden]="(uiState$ | async).sidebarHidden">
+  <button (click)="hideSidebar()" class="hidden-md-up mb-2">Hide sidebar</button>
+
+  <ul *ngIf="!(authState$ | async).authenticated" class="w-100 list-group">
+    <li class="list-group-item" [routerLink]="['/auth/sign-in']" (click)="hideSidebar()">
+      Sign in
+    </li>
+    <li class="list-group-item" [routerLink]="['/auth/sign-up']" (click)="hideSidebar()">
+      Sign up
+    </li>
+  </ul>
+
   <div *ngIf="(authState$ | async).authenticated">
     <p class="mt-3 ">Logged as:</p>
     <p class="mb-5">Grzegorz "Gelio" Rozdzialik</p>
+
+    <ul class="list-group w-100">
+      <li class="list-group-item active" (click)="hideSidebar()">My groups</li>
+      <li class="list-group-item" (click)="hideSidebar()">My tasks</li>
+      <li class="list-group-item" (click)="hideSidebar()">Create group</li>
+      <li class="list-group-item" (click)="hideSidebar()">Account settings</li>
+      <li class="list-group-item" (click)="logout()">
+        Logout
+      </li>
+    </ul>
   </div>
 
-  <ul class="list-group " style="width: 100%">
-    <li class="list-group-item active">My groups</li>
-    <li class="list-group-item">My tasks</li>
-    <li class="list-group-item">Create group</li>
-    <li class="list-group-item">Account settings</li>
-    <li class="list-group-item">Logout</li>
-  </ul>
-  <button (click)="hideSidebar()" class="hidden-md-up">Hide sidebar</button>
 </div>

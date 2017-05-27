@@ -31,4 +31,9 @@ export class SidebarComponent implements OnInit {
   hideSidebar() {
     this._uiStore.dispatch(new UIActions.HideSidebarAction());
   }
+
+  logout() {
+    this._authStore.dispatch(new AuthActions.LogoutAction());
+    this.hideSidebar();
+  }
 }
