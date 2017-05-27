@@ -1,3 +1,5 @@
+import { Group } from './group';
+
 export interface Task {
   _id: string;
   title: string;
@@ -6,4 +8,5 @@ export interface Task {
   done: boolean;
   due_date: string;
   highlighted: boolean;
+  group: Group;
 }

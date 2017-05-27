@@ -31,6 +31,9 @@ const loadDashboardTasks = gql`
           done
           due_date
           highlighted
+          group {
+            name
+          }
         }
       }
     }
@@ -61,7 +64,7 @@ export class DashboardEffects {
 
       const data = response.data;
 
-      return new DashboardActions.LoadDashboardSuccessAction(data['SelfInfo']);
+      return new DashboardActions.LoadDashboardSuccessAction(data['SelfInfo']['user']['tasks']);
     });
 
   constructor(private actions$: Actions, private _authStore: Store<AuthState>,

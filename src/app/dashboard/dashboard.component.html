@@ -1,11 +1,10 @@
-<<<<<<< HEAD
-<h2>Dashboard</h2>
+ <h2>Dashboard</h2>
 
 <div [ngSwitch]="(dashboardState$ | async).loadStatus">
   <div *ngSwitchCase="ProcessStatus.InProgress">Downloading tasks</div>
   <div *ngSwitchCase="ProcessStatus.Error">Error while downloading tasks</div>
   <div *ngSwitchCase="ProcessStatus.Success">
-    {{ (dashboardState$ | async) | json }}
+    <pre>{{ (dashboardState$ | async) | json }}</pre>
 
     <h1 class="mt-5 bm-2 ml-3">Recently added tasks: </h1>
 
@@ -155,33 +154,33 @@
 
         <h1 class="mt-5 bm-2 ml-3">Upcoming deadlines: </h1>
 
-        <div id="accordion" role="tablist" aria-multiselectable="true">
-          <div class="card">
+        <div id="accordion" role="tablist" aria-multiselectable="true" *ngIf="(dashboardState$ | async).dashboardTasks">
+          <div class="card" *ngFor="let task of (dashboardState$ | async).dashboardTasks; let i = index;">
             <div class="card-header" role="tab" id="hheadingOne">
               <div class="row panel-heading">
                 <div class="col-1">
-                  1
+                  {{ i + 1 }}
                 </div>
 
                 <div class="col-2">
-                  12.12.2012
+                  {{ task.published_date }}
                 </div>
 
                 <div class="col-2">
-                  ASD2
+                  {{ task.group.name }}
                 </div>
 
                 <div class="mb-0 col-6">
                   <h5 >
                   <a data-toggle="collapse" data-parent="#accordion" href="#ccollapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Witam wszystkich
+                    {{ task.title }}
                   </a>
                 </h5>
                 </div>
 
 
                 <div class="col-1">
-                  <input type="checkbox"/>
+                  <input type="checkbox" [(ngModel)]="task.done" name="task-done" />
                 </div>
               </div>
 
@@ -189,83 +188,7 @@
 
             <div id="ccollapseOne" class="collapse hide" role="tabpanel" aria-labelledby="hheadingOne">
               <div class="card-block">
-                Elo mordeczki co tam w wielkim swiecie slychac
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header" role="tab" id="hheadingTwo">
-              <div class="row panel-heading">
-                <div class="col-1">
-                  1
-                </div>
-
-                <div class="col-2">
-                  12.12.2012
-                </div>
-
-                <div class="col-2">
-                  ASD2
-                </div>
-
-                <div class="mb-0 col-6">
-                  <h5 >
-                  <a data-toggle="collapse" data-parent="#accordion" href="#ccollapseTwo" aria-expanded="true" aria-controls="collapseOne">
-                    Witam wszystkich
-                  </a>
-                </h5>
-                </div>
-
-
-                <div class="col-1">
-                  <input type="checkbox"/>
-                </div>
-              </div>
-
-            </div>
-
-            <div id="ccollapseTwo" class="collapse hide" role="tabpanel" aria-labelledby="hheadingTwo">
-              <div class="card-block">
-                Elo mordeczki co tam w wielkim swiecie slychac
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header" role="tab" id="hheadingThree">
-              <div class="row panel-heading">
-                <div class="col-1">
-                  1
-                </div>
-
-                <div class="col-2">
-                  12.12.2012
-                </div>
-
-                <div class="col-2">
-                  ASD2
-                </div>
-
-                <div class="mb-0 col-6">
-                  <h5 >
-                  <a data-toggle="collapse" data-parent="#accordion" href="#ccollapseThree" aria-expanded="true" aria-controls="collapseOne">
-                    Witam wszystkich
-                  </a>
-                </h5>
-                </div>
-
-
-                <div class="col-1">
-                  <input type="checkbox"/>
-                </div>
-              </div>
-
-            </div>
-
-            <div id="ccollapseThree" class="collapse hide" role="tabpanel" aria-labelledby="hheadingThree">
-              <div class="card-block">
-                Elo mordeczki co tam w wielkim swiecie slychac
+                {{ task.description }}
               </div>
             </div>
           </div>
