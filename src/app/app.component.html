@@ -1,2 +1,15 @@
-<h1>App</h1>
-<router-outlet></router-outlet>
+<app-sidebar></app-sidebar>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <button class="hidden-md-up" (click)="toggleSidebar()">
+        Toggle sidebar
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

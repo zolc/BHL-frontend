@@ -14,9 +14,13 @@ import { authReducer } from './auth/auth.reducer';
 import { AuthEffects } from './auth/auth.effects';
 import { AuthModule } from './auth/auth.module';
 
+import { uiReducer } from './ui/ui.reducer';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
@@ -34,7 +38,8 @@ export function provideClient(): ApolloClient {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,8 @@ export function provideClient(): ApolloClient {
     ApolloModule.forRoot(provideClient),
     AppRoutingModule,
     StoreModule.provideStore({
-      auth: authReducer
+      auth: authReducer,
+      ui: uiReducer
     }),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     EffectsModule.run(AuthEffects)

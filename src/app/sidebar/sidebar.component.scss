@@ -1,0 +1,21 @@
+.sidebar-wrapper {
+  height: 100vh;
+  border-right: 2px solid black;
+  width: 200px;
+  background: white;
+  z-index: 999;
+
+  @media (min-width: 768px) {
+    float: left;
+  }
+
+  @media (max-width: 767px) {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.sidebar-hidden {
+  display: none;
+}
