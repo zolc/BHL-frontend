@@ -6,4 +6,4 @@ ADD .angular-cli.json package.json tsconfig.json tslint.json yarn.lock ./
 
 RUN yarn
 
-CMD ["npm", "start", "--", "--host", "frontend"]
+CMD ["npm", "start", "--", "--host", "frontend", "--poll", "500"]
