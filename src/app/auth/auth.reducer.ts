@@ -77,6 +77,13 @@ export function authReducer(state = initialState, action: AuthActions.Actions): 
         authenticated: false
       });
 
+    case AuthActions.LOAD_LOCAL_STORAGE:
+      const accessToken = localStorage.getItem(environment.localStorage.accessTokenKey);
+      return Object.assign({}, state, {
+        accessToken: accessToken,
+        authenticated: !!accessToken
+      });
+
     default:
       return state;
   }

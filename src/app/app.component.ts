@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import { AuthState } from './auth/auth.reducer';
+import * as AuthActions from './auth/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +10,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app works!';
+  constructor(private _authStore: Store<AuthState>) {
+    _authStore.dispatch(new AuthActions.LoadLocalStorageAction());
+  }
 }

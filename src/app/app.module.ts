@@ -7,9 +7,12 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { SharedModule } from './shared/shared.module';
+
 
 import { authReducer } from './auth/auth.reducer';
 import { AuthEffects } from './auth/auth.effects';
+import { AuthModule } from './auth/auth.module';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,13 +24,13 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpModule,
+    SharedModule,
+    AuthModule,
     AppRoutingModule,
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
     StoreModule.provideStore({
       auth: authReducer
     }),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
     EffectsModule.run(AuthEffects)
   ],
   providers: [],
