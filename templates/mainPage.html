@@ -24,7 +24,6 @@
 
 					<ul class="list-group " style="width: 100%">
 						<li class="list-group-item active">My groups</li>
-						<li class="list-group-item">My tasks</li>
 						<li class="list-group-item">Create group</li>
 						<li class="list-group-item">Account settings</li>
 						<li class="list-group-item">Logout</li>
@@ -33,88 +32,275 @@
 			
 			</div>
 			<div class="col-xs-10 col-10">
-			  <div class="row mb-2" >
-				<div class="col-12">
-					<div class="windowTitle" style="text-align: center">App Name</div>
+				<div class="row mb-2" >
+					<div class="col-12">
+						<div class="windowTitle" style="text-align: center">App Name</div>
+					</div>
 				</div>
-			  </div>
+
+				<h1 class="mt-5 bm-2 ml-3">Recently added tasks: </h1>
 			  
-			  <h1 class="mt-5 bm-2 ml-3">Recent activity: </h1>
-			  
-			  <div class="row">
-				<div class="col">
-					<table class="table">
-					  <thead>
-						<tr>
-						  <th>#</th>
-						  <th>Date</th>
-						  <th>Group Name</th>
-						  <th>Task Title</th>
-						</tr>
-					  </thead>
-					  <tbody>
-						<tr>
-						  <th scope="row">1</th>
-						  <td>12.12.2012</td>
-						  <td>BD</td>
-						  <td>Kolokwium</td>
-						</tr>
-						<tr>
-						  <th scope="row">2</th>
-						  <td>14.06.2017</td>
-						  <td>ASD2</td>
-						  <td>Egzamin kurwy</td>
-						</tr>
-						<tr>
-						  <th scope="row">3</th>
-						  <td>30.06.2017</td>
-						  <td>Takie tam</td>
-						  <td>Koniec semestru</td>
-						</tr>
-					  </tbody>
-					</table>
+				<div class="card">
+					<div class="card-header" role="tab">
+						<div class="row panel-heading">
+							<div class="col-1">
+								<strong>#</strong>
+							</div>
+							
+							<div class="col-2">
+								<strong>Date</strong>
+							</div>
+							
+							<div class="col-2">
+								<strong>Task group</strong>
+							</div>
+							
+							<div class="col-6">
+								<strong>Task</strong>
+							</div>
+							
+							<div class="col-1">
+								<strong>Check out</strong>
+							</div>
+						</div>
+
+					</div>
+
 				</div>
-			  </div>
-			  
-			  <h1 class="mt-5 bm-2 ml-3">Upcoming tasks: </h1>
-			  
-			  <div class="row mb-3" >
-				<div class="col">
-					<table class="table">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Date</th>
-								<th>Task title</th>
-								<th>Checked</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th scope="row">1</th>
-									<td>12.12.2012</td>
-								<td>BD</td>
-								<td>
+				<div id="accordion" role="tablist" aria-multiselectable="true">
+					<div class="card">
+						<div class="card-header" role="tab" id="headingOne">
+							<div class="row panel-heading">
+								<div class="col-1">
+									1
+								</div>
+								
+								<div class="col-2">
+									12.12.2012
+								</div>
+								
+								<div class="col-2">
+									ASD2
+								</div>
+								
+								<div class="mb-0 col-6">
+									<h5 >
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+										Witam wszystkich
+									</a>
+								</h5>
+								</div>
+								
+
+								<div class="col-1">
 									<input type="checkbox"/>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>14.06.2017</td>
-								<td>ASD2</td>
-								<td>Egzamin kurwy</td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>30.06.2017</td>
-								<td>Takie tam</td>
-								<td>Koniec semestru</td>
-							</tr>
-						</tbody>
-					</table>
+								</div>		
+							</div>
+
+						</div>
+
+						<div id="collapseOne" class="collapse hide" role="tabpanel" aria-labelledby="headingOne">
+							<div class="card-block">
+								Elo mordeczki co tam w wielkim swiecie slychac
+							</div>
+						</div>
+					</div>
+					
+					<div class="card">
+						<div class="card-header" role="tab" id="headingTwo">
+							<div class="row panel-heading">
+								<div class="col-1">
+									1
+								</div>
+								
+								<div class="col-2">
+									12.12.2012
+								</div>
+								
+								<div class="col-2">
+									ASD2
+								</div>
+								
+								<div class="mb-0 col-6">
+									<h5 >
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+										Witam wszystkich
+									</a>
+								</h5>
+								</div>
+								
+
+								<div class="col-1">
+									<input type="checkbox"/>
+								</div>	
+							</div>
+
+						</div>
+
+						<div id="collapseTwo" class="collapse hide" role="tabpanel" aria-labelledby="headingTwo">
+							<div class="card-block">
+								Elo mordeczki co tam w wielkim swiecie slychac
+							</div>
+						</div>
+					</div>
+					
+					<div class="card">
+						<div class="card-header" role="tab" id="headingThree">
+							<div class="row panel-heading">
+								<div class="col-1">
+									1
+								</div>
+								
+								<div class="col-2">
+									12.12.2012
+								</div>
+								
+								<div class="col-2">
+									ASD2
+								</div>
+								
+								<div class="mb-0 col-6">
+									<h5 >
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
+										Witam wszystkich
+									</a>
+								</h5>
+								</div>
+								
+
+								<div class="col-1">
+									<input type="checkbox"/>
+								</div>	
+							</div>
+
+						</div>
+
+						<div id="collapseThree" class="collapse hide" role="tabpanel" aria-labelledby="headingThree">
+							<div class="card-block">
+								Elo mordeczki co tam w wielkim swiecie slychac
+							</div>
+						</div>
+					</div>
 				</div>
-			  </div>
-			</div>
+				
+			  
+			  <h1 class="mt-5 bm-2 ml-3">Upcoming deadlines: </h1>
+			  
+			  <div id="accordion" role="tablist" aria-multiselectable="true">
+					<div class="card">
+						<div class="card-header" role="tab" id="hheadingOne">
+							<div class="row panel-heading">
+								<div class="col-1">
+									1
+								</div>
+								
+								<div class="col-2">
+									12.12.2012
+								</div>
+								
+								<div class="col-2">
+									ASD2
+								</div>
+								
+								<div class="mb-0 col-6">
+									<h5 >
+									<a data-toggle="collapse" data-parent="#accordion" href="#ccollapseOne" aria-expanded="true" aria-controls="collapseOne">
+										Witam wszystkich
+									</a>
+								</h5>
+								</div>
+								
+
+								<div class="col-1">
+									<input type="checkbox"/>
+								</div>		
+							</div>
+
+						</div>
+
+						<div id="ccollapseOne" class="collapse hide" role="tabpanel" aria-labelledby="hheadingOne">
+							<div class="card-block">
+								Elo mordeczki co tam w wielkim swiecie slychac
+							</div>
+						</div>
+					</div>
+					
+					<div class="card">
+						<div class="card-header" role="tab" id="hheadingTwo">
+							<div class="row panel-heading">
+								<div class="col-1">
+									1
+								</div>
+								
+								<div class="col-2">
+									12.12.2012
+								</div>
+								
+								<div class="col-2">
+									ASD2
+								</div>
+								
+								<div class="mb-0 col-6">
+									<h5 >
+									<a data-toggle="collapse" data-parent="#accordion" href="#ccollapseTwo" aria-expanded="true" aria-controls="collapseOne">
+										Witam wszystkich
+									</a>
+								</h5>
+								</div>
+								
+
+								<div class="col-1">
+									<input type="checkbox"/>
+								</div>	
+							</div>
+
+						</div>
+
+						<div id="ccollapseTwo" class="collapse hide" role="tabpanel" aria-labelledby="hheadingTwo">
+							<div class="card-block">
+								Elo mordeczki co tam w wielkim swiecie slychac
+							</div>
+						</div>
+					</div>
+					
+					<div class="card">
+						<div class="card-header" role="tab" id="hheadingThree">
+							<div class="row panel-heading">
+								<div class="col-1">
+									1
+								</div>
+								
+								<div class="col-2">
+									12.12.2012
+								</div>
+								
+								<div class="col-2">
+									ASD2
+								</div>
+								
+								<div class="mb-0 col-6">
+									<h5 >
+									<a data-toggle="collapse" data-parent="#accordion" href="#ccollapseThree" aria-expanded="true" aria-controls="collapseOne">
+										Witam wszystkich
+									</a>
+								</h5>
+								</div>
+								
+
+								<div class="col-1">
+									<input type="checkbox"/>
+								</div>	
+							</div>
+
+						</div>
+
+						<div id="ccollapseThree" class="collapse hide" role="tabpanel" aria-labelledby="hheadingThree">
+							<div class="card-block">
+								Elo mordeczki co tam w wielkim swiecie slychac
+							</div>
+						</div>
+					</div>
+				</div>
 		</div>
 		
 		
