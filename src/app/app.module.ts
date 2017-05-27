@@ -23,14 +23,17 @@ import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
 import { DashboardModule } from './dashboard/dashboard.module';
-
+import { dashboardReducer } from './dashboard/dashboard.reducer';
+import { DashboardEffects } from './dashboard/dashboard.effects';
 
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
 import { ApolloModule } from 'apollo-angular';
 
+import { environment } from '../environments/environment';
+
 const client = new ApolloClient({
   networkInterface: createNetworkInterface({
-    uri: 'http://localhost:4200/api/graphql'
+    uri: environment.graphQlUrl
   }),
 });
 
@@ -52,10 +55,12 @@ export function provideClient(): ApolloClient {
     AppRoutingModule,
     StoreModule.provideStore({
       auth: authReducer,
-      ui: uiReducer
+      ui: uiReducer,
+      dashboard: dashboardReducer
     }),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
-    EffectsModule.run(AuthEffects)
+    EffectsModule.run(AuthEffects),
+    EffectsModule.run(DashboardEffects)
   ],
   providers: [],
   bootstrap: [AppComponent]
