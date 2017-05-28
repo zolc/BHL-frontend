@@ -8,6 +8,7 @@ export interface Task {
   published_date_native?: Date;
   done: boolean;
   due_date: string;
+  due_date_native?: Date;
   highlighted: boolean;
   group: Group;
   expanded: boolean;

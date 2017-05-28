@@ -18,7 +18,8 @@
     </p>
 
     <ul class="list-group w-100">
-      <li class="list-group-item active" (click)="hideSidebar()">My groups</li>
+      <li class="list-group-item" (click)="hideSidebar()" [routerLink]="['/dashboard']">Dashboard</li>
+      <li class="list-group-item" (click)="hideSidebar()" [routerLink]="['/groups']">My groups</li>
       <li class="list-group-item" (click)="hideSidebar()">My tasks</li>
       <li class="list-group-item" (click)="hideSidebar()">Create group</li>
       <li class="list-group-item" (click)="hideSidebar()">Account settings</li>

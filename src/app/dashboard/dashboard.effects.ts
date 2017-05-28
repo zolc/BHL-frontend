@@ -74,6 +74,7 @@ export class DashboardEffects {
       const rawTasks: Task[] = data['SelfInfo']['user']['tasks'];
       const tasksWithDate = rawTasks.map(task => Object.assign({}, task, {
         published_date_native: new Date(task.published_date),
+        due_date_native: task.due_date ? new Date(task.due_date) : null,
         expanded: false
       }));
       return new DashboardActions.LoadDashboardSuccessAction(tasksWithDate);

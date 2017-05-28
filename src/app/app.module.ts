@@ -31,6 +31,10 @@ import { ApolloModule } from 'apollo-angular';
 
 import { environment } from '../environments/environment';
 
+import { GroupsModule } from './groups/groups.module';
+import { groupsReducer } from './groups/groups.reducer';
+import { GroupsEffects } from './groups/groups.effects';
+
 const client = new ApolloClient({
   networkInterface: createNetworkInterface({
     uri: environment.graphQlUrl
@@ -51,16 +55,19 @@ export function provideClient(): ApolloClient {
     SharedModule,
     AuthModule,
     DashboardModule,
+    GroupsModule,
     ApolloModule.forRoot(provideClient),
     AppRoutingModule,
     StoreModule.provideStore({
       auth: authReducer,
       ui: uiReducer,
-      dashboard: dashboardReducer
+      dashboard: dashboardReducer,
+      groups: groupsReducer
     }),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     EffectsModule.run(AuthEffects),
-    EffectsModule.run(DashboardEffects)
+    EffectsModule.run(DashboardEffects),
+    EffectsModule.run(GroupsEffects)
   ],
   providers: [],
   bootstrap: [AppComponent]
