@@ -1,27 +1,37 @@
+
+
+@font-face {
+    font-family: 'Lolec'; /*a name to be used later*/
+    src: url('fonts/Poppins-regular.ttf') format('truetype'); /*URL to font*/
+}
+
 .windowTitle {
 	
 	background-color: #000080;
 	color: #F6F6F6;
 	font-size: 4em;
-	font-family: Roboto, Verdana;
+	font-family: 'Lolec', sans-serif;
 	
 }
 
 body {
 	
-	font-family: Roboto, Verdana, Arial;
+	font-family: 'Lolec', Raleway, Verdana, Arial;
 	background-color: #F6F6F6;
 	color: #000080;
 }
 
 
 .btn {
-	
+	text-align: center;
+	font-family: 'Lolec';
 	background-color: #FC8A15;
 	color: #F6F6F6;
-	width: 9em;
+	width: 8.5em;
+	min-width: 8.5em;
 	height: 3em;
 }
+
 
 .card {
 	color: #009378
