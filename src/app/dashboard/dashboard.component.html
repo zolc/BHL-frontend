@@ -4,7 +4,6 @@
   <div *ngSwitchCase="ProcessStatus.InProgress">Downloading tasks</div>
   <div *ngSwitchCase="ProcessStatus.Error">Error while downloading tasks</div>
   <div *ngSwitchCase="ProcessStatus.Success">
-    <pre>{{ (dashboardState$ | async) | json }}</pre>
 
     <h1 class="mt-5 bm-2 ml-3">Recently added tasks: </h1>
 
@@ -73,125 +72,44 @@
               </div>
             </div>
           </div>
-
-          <div class="card">
-            <div class="card-header" role="tab" id="headingTwo">
-              <div class="row panel-heading">
-                <div class="col-1">
-                  1
-                </div>
-
-                <div class="col-2">
-                  12.12.2012
-                </div>
-
-                <div class="col-2">
-                  ASD2
-                </div>
-
-                <div class="mb-0 col-6">
-                  <h5 >
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
-                    Witam wszystkich
-                  </a>
-                </h5>
-                </div>
-
-
-                <div class="col-1">
-                  <input type="checkbox"/>
-                </div>
-              </div>
-
-            </div>
-
-            <div id="collapseTwo" class="collapse hide" role="tabpanel" aria-labelledby="headingTwo">
-              <div class="card-block">
-                Elo mordeczki co tam w wielkim swiecie slychac
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header" role="tab" id="headingThree">
-              <div class="row panel-heading">
-                <div class="col-1">
-                  1
-                </div>
-
-                <div class="col-2">
-                  12.12.2012
-                </div>
-
-                <div class="col-2">
-                  ASD2
-                </div>
-
-                <div class="mb-0 col-6">
-                  <h5 >
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
-                    Witam wszystkich
-                  </a>
-                </h5>
-                </div>
-
-
-                <div class="col-1">
-                  <input type="checkbox"/>
-                </div>
-              </div>
-
-            </div>
-
-            <div id="collapseThree" class="collapse hide" role="tabpanel" aria-labelledby="headingThree">
-              <div class="card-block">
-                Elo mordeczki co tam w wielkim swiecie slychac
-              </div>
-            </div>
-          </div>
         </div>
 
 
-        <h1 class="mt-5 bm-2 ml-3">Upcoming deadlines: </h1>
+        <div>
+          <h1 class="mt-5 bm-2 ml-3">Upcoming deadlines:</h1>
 
-        <div id="accordion" role="tablist" aria-multiselectable="true" *ngIf="(dashboardState$ | async).dashboardTasks">
-          <div class="card" *ngFor="let task of (dashboardState$ | async).dashboardTasks; let i = index;">
-            <div class="card-header" role="tab" id="hheadingOne">
+          <div class="card">
+            <div class="card-header" role="tab">
               <div class="row panel-heading">
                 <div class="col-1">
-                  {{ i + 1 }}
+                  <strong>#</strong>
                 </div>
 
                 <div class="col-2">
-                  {{ task.published_date }}
+                  <strong>Date</strong>
                 </div>
 
                 <div class="col-2">
-                  {{ task.group.name }}
+                  <strong>Task group</strong>
                 </div>
 
-                <div class="mb-0 col-6">
-                  <h5 >
-                  <a data-toggle="collapse" data-parent="#accordion" href="#ccollapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    {{ task.title }}
-                  </a>
-                </h5>
+                <div class="col-6">
+                  <strong>Task</strong>
                 </div>
-
 
                 <div class="col-1">
-                  <input type="checkbox" [(ngModel)]="task.done" name="task-done" />
+                  <strong>Done</strong>
                 </div>
               </div>
 
             </div>
 
-            <div id="ccollapseOne" class="collapse hide" role="tabpanel" aria-labelledby="hheadingOne">
-              <div class="card-block">
-                {{ task.description }}
-              </div>
-            </div>
           </div>
+
+          <div id="accordion" role="tablist" aria-multiselectable="true" *ngIf="(dashboardState$ | async).dashboardTasks">
+            <app-task-row *ngFor="let task of (dashboardState$ | async).dashboardTasks; let i = index;"
+              [task]="task" [index]="i" (taskDone)="onTaskDone($event.task, $event.index)">
+            </app-task-row>
         </div>
   </div>
 </div>

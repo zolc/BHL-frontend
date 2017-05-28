@@ -6,6 +6,8 @@ import { AuthGuard  } from '../auth/auth.guard';
 
 import { SharedModule } from '../shared/shared.module';
 
+import { TaskRowComponent } from './task-row/task-row.component';
+
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -17,7 +19,10 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   exports: [RouterModule],
-  declarations: [DashboardComponent],
+  declarations: [
+    DashboardComponent,
+    TaskRowComponent
+  ],
   providers: [],
 })
 export class DashboardModule { }

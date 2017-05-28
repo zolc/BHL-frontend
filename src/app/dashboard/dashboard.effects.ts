@@ -17,7 +17,7 @@ import gql from 'graphql-tag';
 import * as DashboardActions from './dashboard.actions';
 
 import { AuthState } from '../auth/auth.reducer';
-import {  } from '../auth/';
+import { Task } from '../models/task';
 
 const loadDashboardTasks = gql`
   mutation SelfInfo($token: String!) {
@@ -36,6 +36,14 @@ const loadDashboardTasks = gql`
           }
         }
       }
+    }
+  }
+`;
+
+const completeTask = gql`
+  mutation ToggleComplete($token: String!, $task_id: String!) {
+    ToggleComplete(token: $token, task_id: $task_id) {
+      success
     }
   }
 `;
@@ -63,8 +71,28 @@ export class DashboardEffects {
       }
 
       const data = response.data;
+      const rawTasks: Task[] = data['SelfInfo']['user']['tasks'];
+      const tasksWithDate = rawTasks.map(task => Object.assign({}, task, {
+        published_date_native: new Date(task.published_date),
+        expanded: false
+      }));
+      return new DashboardActions.LoadDashboardSuccessAction(tasksWithDate);
+    });
 
-      return new DashboardActions.LoadDashboardSuccessAction(data['SelfInfo']['user']['tasks']);
+  @Effect({
+    dispatch: false
+  })
+  completeTask$ = this.actions$
+    .ofType(DashboardActions.COMPLETE_TASK)
+    .map(toPayload)
+    .map(task => {
+      return this.apollo.mutate({
+        mutation: completeTask,
+        variables: {
+          token: this.authState.accessToken,
+          task_id: task._id
+        }
+      });
     });
 
   constructor(private actions$: Actions, private _authStore: Store<AuthState>,
