@@ -1,6 +1,6 @@
 .windowTitle {
 	
-	background-color: #FC8A15;
+	background-color: #000080;
 	color: #F6F6F6;
 	font-size: 4em;
 	font-family: Roboto, Verdana;
@@ -11,13 +11,9 @@ body {
 	
 	font-family: Roboto, Verdana, Arial;
 	background-color: #F6F6F6;
+	color: #000080;
 }
 
-.table {
-	
-	color: #009378
-
-}
 
 .btn {
 	
@@ -33,6 +29,21 @@ body {
 
 a, a:hover {
 	text-decoration: none;
-	color: #009378
+	color: #000080;
 }
 
+.subpageTitle {
+	color: #FC8A15;
+}
+
+.card {
+	color: #000080;
+}
+
+.list-group-item.active {
+	background-color: #FC8A15;
+}
+
+.list-group-item {
+	
+}
