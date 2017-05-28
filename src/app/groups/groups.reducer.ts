@@ -69,6 +69,22 @@ export function groupsReducer(state = initialState, action: GroupsActions.Action
         singleGroupLoadErrors: action.payload
       });
 
+    case GroupsActions.COMPLETE_TASK:
+      const taskIndex = state.singleGroup.tasks.indexOf(action.payload);
+      const updatedTasks = [
+        ...state.singleGroup.tasks.slice(0, taskIndex),
+        Object.assign({}, action.payload, {
+          done: true
+        }),
+        ...state.singleGroup.tasks.slice(taskIndex + 1)
+      ];
+
+      return Object.assign({}, state, {
+        singleGroup: Object.assign({}, state.singleGroup, {
+          tasks: updatedTasks
+        })
+      });
+
     default:
       return state;
   }
