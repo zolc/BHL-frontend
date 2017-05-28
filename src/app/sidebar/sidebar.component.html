@@ -1,5 +1,7 @@
 <div class="sidebar-wrapper" [class.sidebar-hidden]="(uiState$ | async).sidebarHidden">
-  <button (click)="hideSidebar()" class="hidden-md-up mb-2">Hide sidebar</button>
+  <button (click)="hideSidebar()" class="hidden-md-up mb-2 mr-2 mt-2 close">
+    &times;
+  </button>
 
   <ul *ngIf="!(authState$ | async).authenticated" class="w-100 list-group">
     <li class="list-group-item sidebar-item" [routerLink]="['/auth/sign-in']" (click)="hideSidebar()">
