@@ -1,0 +1,6 @@
+.content-wrapper {
+  @media (min-width: 768px) {
+    width: calc(100% - 200px);
+    margin-left: 200px;
+  }
+}
