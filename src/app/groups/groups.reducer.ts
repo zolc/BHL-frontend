@@ -13,13 +13,22 @@ export interface GroupsState {
   loadErrors: Errors;
 
   groups: Group[];
+
+
+  singleGroupLoadStatus: ProcessStatus;
+  singleGroupLoadErrors: Errors;
+  singleGroup: Group;
 }
 
 const initialState: GroupsState = {
   loadStatus: ProcessStatus.Idle,
   loadErrors: null,
 
-  groups: null
+  groups: null,
+
+  singleGroupLoadStatus: ProcessStatus.Idle,
+  singleGroupLoadErrors: null,
+  singleGroup: null
 };
 
 export function groupsReducer(state = initialState, action: GroupsActions.Actions): GroupsState {
@@ -40,6 +49,24 @@ export function groupsReducer(state = initialState, action: GroupsActions.Action
       return Object.assign({}, state, {
         loadStatus: ProcessStatus.Error,
         loadErrors: action.payload
+      });
+
+    case GroupsActions.LOAD_SINGLE_GROUP:
+      return Object.assign({}, state, {
+        singleGroupLoadStatus: ProcessStatus.InProgress,
+        singleGroupLoadErrors: null
+      });
+
+    case GroupsActions.LOAD_SINGLE_GROUP_SUCCESS:
+      return Object.assign({}, state, {
+        singleGroupLoadStatus: ProcessStatus.Success,
+        singleGroup: action.payload
+      });
+
+    case GroupsActions.LOAD_SINGLE_GROUP_ERROR:
+      return Object.assign({}, state, {
+        singleGroupLoadStatus: ProcessStatus.Error,
+        singleGroupLoadErrors: action.payload
       });
 
     default:

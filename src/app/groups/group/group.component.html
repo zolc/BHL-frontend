@@ -1,0 +1,7 @@
+<div [ngSwitch]="(groupsState$ | async).singleGroupLoadStatus">
+  <div *ngSwitchCase="ProcessStatus.Error">Load group error</div>
+  <div *ngSwitchCase="ProcessStatus.InProgress">Loading group</div>
+  <div *ngSwitchCase="ProcessStatus.Success">
+    <pre>{{ (groupsState$ | async).singleGroup | json }}</pre>
+  </div>
+</div>

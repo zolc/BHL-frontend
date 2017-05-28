@@ -21,8 +21,11 @@ import * as GroupsActions from './groups.actions';
 import { GroupsState } from './groups.reducer';
 
 import { User } from '../models/user';
+import { Group } from '../models/group';
 
 import { environment } from '../../environments/environment';
+
+import { transformTask } from '../shared/transform-task';
 
 const loadGroups = gql`
   mutation SelfInfo($token: String!) {
@@ -35,6 +38,29 @@ const loadGroups = gql`
             _id
           }
         }
+      }
+    }
+  }
+`;
+
+
+const loadSingleGroup = gql`
+  query Group($token: String!, $_id: String!) {
+    group(token: $token, _id: $_id) {
+      name
+      completed_tasks {
+        _id
+        title
+        description
+        published_date
+        due_date
+      }
+      uncompleted_tasks {
+        _id
+        title
+        description
+        published_date
+        due_date
       }
     }
   }
@@ -70,6 +96,37 @@ export class GroupsEffects {
       return new GroupsActions.LoadGroupsSuccessAction(groups);
     });
 
+
+  @Effect()
+  loadSingleGroup$: Observable<Action> = this.actions$
+    .ofType(GroupsActions.LOAD_SINGLE_GROUP)
+    .map(toPayload)
+    .switchMap(groupId => {
+      return this.apollo.query({
+        query: loadSingleGroup,
+        variables: {
+          token: this._authState.accessToken,
+          _id: groupId
+        }
+      })
+        .catch(() =>
+          Observable.of(new GroupsActions.LoadSingleGroupErrorAction({
+            http: 'http error'
+          }))
+        );
+    })
+    .map(response => {
+      if (response instanceof GroupsActions.LoadSingleGroupErrorAction) {
+        return response;
+      }
+
+      const group: Group = response.data['group'];
+      const groupNativeTasks = Object.assign({}, group, {
+        completed_tasks: group.completed_tasks.map(task => transformTask(task)),
+        uncompleted_tasks: group.uncompleted_tasks.map(task => transformTask(task))
+      });
+      return new GroupsActions.LoadSingleGroupSuccessAction(groupNativeTasks);
+    });
 
   constructor(private actions$: Actions, private apollo: Apollo, private _authStore: Store<AuthState>) {
     this._authStore.select('auth').subscribe((state: AuthState) => {

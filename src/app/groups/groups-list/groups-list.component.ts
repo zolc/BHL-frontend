@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+
+import * as GroupsActions from '../groups.actions';
+import { GroupsState } from '../groups.reducer';
+import { ProcessStatus } from '../../shared/process-status.enum';
 
 @Component({
   selector: 'app-groups-list',
@@ -6,7 +12,16 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class GroupsListComponent implements OnInit {
-  constructor() { }
+  ProcessStatus = ProcessStatus;
+  groupsState$: Observable<GroupsState>;
 
-  ngOnInit() { }
+  constructor(
+    private _groupsStore: Store<GroupsState>
+  ) {
+    this.groupsState$ = _groupsStore.select('groups');
+  }
+
+  ngOnInit() {
+    this._groupsStore.dispatch(new GroupsActions.LoadGroupsAction());
+  }
 }

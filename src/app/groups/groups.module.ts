@@ -4,9 +4,15 @@ import { SharedModule } from '../shared/shared.module';
 import { AuthGuard } from '../auth/auth.guard';
 
 import { GroupsComponent } from './groups.component';
+import { GroupsListComponent } from './groups-list/groups-list.component';
+import { GroupComponent } from './group/group.component';
 
 const routes: Routes = [
-  { path: 'groups', component: GroupsComponent, canActivate: [AuthGuard] }
+  { path: 'groups', component: GroupsComponent, canActivate: [AuthGuard], children: [
+    { path: 'list', component: GroupsListComponent },
+    { path: 'group/:id', component: GroupComponent },
+    { path: '', pathMatch: 'full', redirectTo: 'list' }
+  ]}
 ];
 
 @NgModule({
@@ -16,7 +22,9 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
   declarations: [
-    GroupsComponent
+    GroupsComponent,
+    GroupsListComponent,
+    GroupComponent
   ]
 })
 export class GroupsModule { }
