@@ -2,10 +2,17 @@
   <div *ngSwitchCase="ProcessStatus.Error">Load group error</div>
   <div *ngSwitchCase="ProcessStatus.InProgress">Loading group</div>
   <div *ngSwitchCase="ProcessStatus.Success">
-    <h2>{{ (groupsState$ | async).singleGroup.name }}</h2>
 
-    <div>
-      <h1 class="mt-5 bm-2 ml-3">Uncompleted tasks:</h1>
+
+
+
+        <div class="row mb-2" >
+        <div class="col-12">
+          <div class="windowTitle" style="text-align: center">{{ (groupsState$ | async).singleGroup.name }}</div>
+        </div>
+        </div>
+
+      <h1 class="mt-5 bm-2 ml-3 subpageTitle">Uncompleted tasks:</h1>
 
       <div class="card">
         <div class="card-header" role="tab">
@@ -43,7 +50,7 @@
   </div>
 
     <div>
-      <h1 class="mt-5 bm-2 ml-3">Completed tasks:</h1>
+      <h1 class="mt-5 bm-2 ml-3 subpageTitle">Completed tasks:</h1>
 
       <div class="card">
         <div class="card-header" role="tab">

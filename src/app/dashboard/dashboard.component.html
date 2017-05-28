@@ -1,11 +1,16 @@
- <h2>Dashboard</h2>
 
 <div [ngSwitch]="(dashboardState$ | async).loadStatus">
   <div *ngSwitchCase="ProcessStatus.InProgress">Downloading tasks</div>
   <div *ngSwitchCase="ProcessStatus.Error">Error while downloading tasks</div>
   <div *ngSwitchCase="ProcessStatus.Success">
 
-    <h1 class="mt-5 bm-2 ml-3">Recently added tasks: </h1>
+<div class="col-xs-10 col-10">
+        <div class="row mb-2" >
+          <div class="col-12">
+            <div class="windowTitle" style="text-align: center">Dashboard</div>
+          </div>
+        </div>
+    <h1 class="mt-5 bm-2 ml-3 subpageTitle">Recently added tasks: </h1>
 
         <div class="card">
           <div class="card-header" role="tab">
@@ -76,7 +81,7 @@
 
 
         <div>
-          <h1 class="mt-5 bm-2 ml-3">Upcoming deadlines:</h1>
+          <h1 class="mt-5 bm-2 ml-3 subpageTitle">Upcoming deadlines:</h1>
 
           <div class="card">
             <div class="card-header" role="tab">
