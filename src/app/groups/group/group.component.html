@@ -2,6 +2,81 @@
   <div *ngSwitchCase="ProcessStatus.Error">Load group error</div>
   <div *ngSwitchCase="ProcessStatus.InProgress">Loading group</div>
   <div *ngSwitchCase="ProcessStatus.Success">
-    <pre>{{ (groupsState$ | async).singleGroup | json }}</pre>
+    <h2>{{ (groupsState$ | async).singleGroup.name }}</h2>
+
+    <div>
+      <h1 class="mt-5 bm-2 ml-3">Uncompleted tasks:</h1>
+
+      <div class="card">
+        <div class="card-header" role="tab">
+          <div class="row panel-heading">
+            <div class="col-1">
+              <strong>#</strong>
+            </div>
+
+            <div class="col-2">
+              <strong>Due date</strong>
+            </div>
+
+            <div class="col-2">
+              <strong>Task group</strong>
+            </div>
+
+            <div class="col-6">
+              <strong>Task</strong>
+            </div>
+
+            <div class="col-1">
+              <strong>Done</strong>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div id="accordion" role="tablist" aria-multiselectable="true" *ngIf="(groupsState$ | async).singleGroup">
+        <app-task-row *ngFor="let task of (groupsState$ | async).singleGroup.uncompleted_tasks; let i = index;"
+          [task]="task" [index]="i" (taskDone)="onTaskDone($event.task, $event.index)">
+        </app-task-row>
+    </div>
+  </div>
+
+    <div>
+      <h1 class="mt-5 bm-2 ml-3">Completed tasks:</h1>
+
+      <div class="card">
+        <div class="card-header" role="tab">
+          <div class="row panel-heading">
+            <div class="col-1">
+              <strong>#</strong>
+            </div>
+
+            <div class="col-2">
+              <strong>Due date</strong>
+            </div>
+
+            <div class="col-2">
+              <strong>Task group</strong>
+            </div>
+
+            <div class="col-6">
+              <strong>Task</strong>
+            </div>
+
+            <div class="col-1">
+              <strong>Done</strong>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div id="accordion" role="tablist" aria-multiselectable="true" *ngIf="(groupsState$ | async).singleGroup">
+        <app-task-row *ngFor="let task of (groupsState$ | async).singleGroup.completed_tasks; let i = index;"
+          [task]="task" [index]="i" (taskDone)="onTaskDone($event.task, $event.index)">
+        </app-task-row>
+    </div>
   </div>
 </div>

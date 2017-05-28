@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { TaskRowComponent } from './task-row/task-row.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -14,9 +16,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     HttpModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TaskRowComponent
   ],
-  declarations: [],
+  declarations: [
+    TaskRowComponent
+  ],
   providers: [],
 })
 export class SharedModule { }

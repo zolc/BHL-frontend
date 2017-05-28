@@ -51,16 +51,24 @@ const loadSingleGroup = gql`
       completed_tasks {
         _id
         title
+        group {
+          name
+        }
         description
         published_date
         due_date
+        done
       }
       uncompleted_tasks {
         _id
         title
+        group {
+          name
+        }
         description
         published_date
         due_date
+        done
       }
     }
   }

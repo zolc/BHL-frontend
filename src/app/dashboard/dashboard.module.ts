@@ -6,7 +6,6 @@ import { AuthGuard  } from '../auth/auth.guard';
 
 import { SharedModule } from '../shared/shared.module';
 
-import { TaskRowComponent } from './task-row/task-row.component';
 
 
 const routes: Routes = [
@@ -20,8 +19,7 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
   declarations: [
-    DashboardComponent,
-    TaskRowComponent
+    DashboardComponent
   ],
   providers: [],
 })

@@ -8,13 +8,14 @@ import { Subscription } from 'rxjs/Subscription';
 import * as GroupsActions from '../groups.actions';
 import { GroupsState } from '../groups.reducer';
 import { ProcessStatus } from '../../shared/process-status.enum';
+import { Task } from '../../models/task';
 
 @Component({
   selector: 'app-group',
   templateUrl: 'group.component.html'
 })
 
-export class GroupComponent implements OnInit {
+export class GroupComponent implements OnInit, OnDestroy {
   ProcessStatus = ProcessStatus;
   groupsState$: Observable<GroupsState>;
 
@@ -39,5 +40,9 @@ export class GroupComponent implements OnInit {
 
   ngOnDestroy() {
     this._routeParamsSub.unsubscribe();
+  }
+
+  onTaskDone(task: Task, index: number) {
+    // this._dashboardStore.dispatch(new DashboardActions.CompleteTaskAction(task));
   }
 }
