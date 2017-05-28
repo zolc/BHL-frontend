@@ -2,28 +2,30 @@
   <button (click)="hideSidebar()" class="hidden-md-up mb-2">Hide sidebar</button>
 
   <ul *ngIf="!(authState$ | async).authenticated" class="w-100 list-group">
-    <li class="list-group-item" [routerLink]="['/auth/sign-in']" (click)="hideSidebar()">
+    <li class="list-group-item sidebar-item" [routerLink]="['/auth/sign-in']" (click)="hideSidebar()">
       Sign in
     </li>
-    <li class="list-group-item" [routerLink]="['/auth/sign-up']" (click)="hideSidebar()">
+    <li class="list-group-item sidebar-item" [routerLink]="['/auth/sign-up']" (click)="hideSidebar()">
       Sign up
     </li>
   </ul>
 
   <div *ngIf="(authState$ | async).authenticated">
-    <p class="mt-3 ">Logged as:</p>
-    <p class="mb-5">
-      {{ (authState$ | async).userData?.first_name }}
-      {{ (authState$ | async).userData?.last_name }}
-    </p>
+    <div class="px-3">
+      <p class="mt-3 ">Logged as:</p>
+      <p class="mb-5">
+        {{ (authState$ | async).userData?.first_name }}
+        {{ (authState$ | async).userData?.last_name }}
+      </p>
+    </div>
 
     <ul class="list-group w-100">
-      <li class="list-group-item" (click)="hideSidebar()" [routerLink]="['/dashboard']">Dashboard</li>
-      <li class="list-group-item" (click)="hideSidebar()" [routerLink]="['/groups']">My groups</li>
-      <li class="list-group-item" (click)="hideSidebar()">My tasks</li>
-      <li class="list-group-item" (click)="hideSidebar()">Create group</li>
-      <li class="list-group-item" (click)="hideSidebar()">Account settings</li>
-      <li class="list-group-item" (click)="logout()">
+      <li class="list-group-item sidebar-item" (click)="hideSidebar()" [routerLink]="['/dashboard']">Dashboard</li>
+      <li class="list-group-item sidebar-item" (click)="hideSidebar()" [routerLink]="['/groups']">My groups</li>
+      <li class="list-group-item sidebar-item" (click)="hideSidebar()">My tasks</li>
+      <li class="list-group-item sidebar-item" (click)="hideSidebar()">Create group</li>
+      <li class="list-group-item sidebar-item" (click)="hideSidebar()">Account settings</li>
+      <li class="list-group-item sidebar-item" (click)="logout()">
         Logout
       </li>
     </ul>
