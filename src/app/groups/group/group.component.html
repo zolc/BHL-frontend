@@ -36,7 +36,7 @@
       </div>
 
       <div id="accordion" role="tablist" aria-multiselectable="true" *ngIf="(groupsState$ | async).singleGroup">
-        <app-task-row *ngFor="let task of (groupsState$ | async).singleGroup.uncompleted_tasks; let i = index;"
+        <app-task-row *ngFor="let task of (uncompletedTasks$ | async); let i = index;"
           [task]="task" [index]="i" (taskDone)="onTaskDone($event.task, $event.index)">
         </app-task-row>
     </div>
@@ -74,7 +74,7 @@
       </div>
 
       <div id="accordion" role="tablist" aria-multiselectable="true" *ngIf="(groupsState$ | async).singleGroup">
-        <app-task-row *ngFor="let task of (groupsState$ | async).singleGroup.completed_tasks; let i = index;"
+        <app-task-row *ngFor="let task of (completedTasks$ | async); let i = index;"
           [task]="task" [index]="i" (taskDone)="onTaskDone($event.task, $event.index)">
         </app-task-row>
     </div>

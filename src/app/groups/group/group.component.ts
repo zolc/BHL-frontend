@@ -10,6 +10,7 @@ import { GroupsState } from '../groups.reducer';
 import { ProcessStatus } from '../../shared/process-status.enum';
 import { Task } from '../../models/task';
 
+
 @Component({
   selector: 'app-group',
   templateUrl: 'group.component.html'
@@ -18,6 +19,9 @@ import { Task } from '../../models/task';
 export class GroupComponent implements OnInit, OnDestroy {
   ProcessStatus = ProcessStatus;
   groupsState$: Observable<GroupsState>;
+
+  completedTasks$: Observable<Task[]>;
+  uncompletedTasks$: Observable<Task[]>;
 
   groupId = '';
 
@@ -28,6 +32,8 @@ export class GroupComponent implements OnInit, OnDestroy {
     private _route: ActivatedRoute
   ) {
     this.groupsState$ = _groupsStore.select('groups');
+    this.completedTasks$ = this.groupsState$.map(state => state.singleGroup.tasks.filter(task => task.done));
+    this.uncompletedTasks$ = this.groupsState$.map(state => state.singleGroup.tasks.filter(task => !task.done));
   }
 
   ngOnInit() {
@@ -43,6 +49,6 @@ export class GroupComponent implements OnInit, OnDestroy {
   }
 
   onTaskDone(task: Task, index: number) {
-    // this._dashboardStore.dispatch(new DashboardActions.CompleteTaskAction(task));
+    this._groupsStore.dispatch(new GroupsActions.CompleteTaskAction(task));
   }
 }

@@ -21,6 +21,7 @@ import * as GroupsActions from './groups.actions';
 import { GroupsState } from './groups.reducer';
 
 import { User } from '../models/user';
+import { Task } from '../models/task';
 import { Group } from '../models/group';
 
 import { environment } from '../../environments/environment';
@@ -48,6 +49,17 @@ const loadSingleGroup = gql`
   query Group($token: String!, $_id: String!) {
     group(token: $token, _id: $_id) {
       name
+      tasks {
+        _id
+        title
+        group {
+          name
+        }
+        description
+        published_date
+        due_date
+        done
+      }
       completed_tasks {
         _id
         title
@@ -70,6 +82,14 @@ const loadSingleGroup = gql`
         due_date
         done
       }
+    }
+  }
+`;
+
+const completeTask = gql`
+  mutation ToggleComplete($token: String!, $task_id: String!) {
+    ToggleComplete(token: $token, task_id: $task_id) {
+      success
     }
   }
 `;
@@ -131,9 +151,26 @@ export class GroupsEffects {
       const group: Group = response.data['group'];
       const groupNativeTasks = Object.assign({}, group, {
         completed_tasks: group.completed_tasks.map(task => transformTask(task)),
-        uncompleted_tasks: group.uncompleted_tasks.map(task => transformTask(task))
+        uncompleted_tasks: group.uncompleted_tasks.map(task => transformTask(task)),
+        tasks: group.tasks.map(task => transformTask(task))
       });
       return new GroupsActions.LoadSingleGroupSuccessAction(groupNativeTasks);
+    });
+
+  @Effect({
+    dispatch: false
+  })
+  completeTask$ = this.actions$
+    .ofType(GroupsActions.COMPLETE_TASK)
+    .map(toPayload)
+    .map(task => {
+      return this.apollo.mutate({
+        mutation: completeTask,
+        variables: {
+          token: this._authState.accessToken,
+          task_id: task._id
+        }
+      });
     });
 
   constructor(private actions$: Actions, private apollo: Apollo, private _authStore: Store<AuthState>) {
