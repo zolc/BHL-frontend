@@ -7,6 +7,8 @@ import { DashboardState } from './dashboard.reducer';
 
 import { ProcessStatus } from '../shared/process-status.enum';
 
+import { Task } from '../models/task';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'dashboard.component.html'
@@ -22,5 +24,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this._dashboardStore.dispatch(new DashboardActions.LoadDashboardAction());
+  }
+
+  onTaskDone(task: Task, index: number) {
+    this._dashboardStore.dispatch(new DashboardActions.CompleteTaskAction(task));
   }
 }

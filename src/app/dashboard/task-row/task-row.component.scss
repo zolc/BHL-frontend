@@ -1,0 +1,12 @@
+.collapse-task-description {
+  max-height: 0;
+}
+
+.task-description {
+  transition: max-height 2s linear;
+  overflow: hidden;
+}
+
+.line-through {
+  text-decoration: line-through;
+}

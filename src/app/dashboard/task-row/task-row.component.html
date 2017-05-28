@@ -1,0 +1,38 @@
+<div class="card" *ngIf="task" (click)="toggleTask(task)" [class.line-through]="task.done">
+  <div class="card-header" role="tab" id="hheadingOne">
+    <div class="row panel-heading">
+      <div class="col-1">
+        {{ index + 1 }}
+      </div>
+
+      <div class="col-2">
+        {{ task.published_date_native | date:'H:mm d.MM.y' }}
+      </div>
+
+      <div class="col-2">
+        {{ task.group.name }}
+      </div>
+
+      <div class="mb-0 col-6">
+        <h5 >
+        <a data-toggle="collapse" data-parent="#accordion" href="#ccollapseOne" aria-expanded="true" aria-controls="collapseOne">
+          {{ task.title }}
+        </a>
+      </h5>
+      </div>
+
+
+      <div class="col-1">
+        <input type="checkbox" [(ngModel)]="task.done" name="task-done"
+          (ngModelChange)="toggleTaskDone(task)" (click)="$event.stopPropagation()" [disabled]="task.done" />
+      </div>
+    </div>
+
+  </div>
+
+  <div id="ccollapseOne" [class.collapse-task-description]="!task.expanded" class="task-description" role="tabpanel" aria-labelledby="hheadingOne">
+    <div class="card-block">
+      {{ task.description }}
+    </div>
+  </div>
+</div>
