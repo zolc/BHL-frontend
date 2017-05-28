@@ -6,7 +6,12 @@
       </div>
 
       <div class="col-2">
-        {{ task.published_date_native | date:'H:mm d.MM.y' }}
+        <span *ngIf="task.due_date_native">
+          {{ task.due_date_native | date:'H:mm d.MM.y' }}
+        </span>
+        <span *ngIf="!task.due_date_native">
+          None
+        </span>
       </div>
 
       <div class="col-2">

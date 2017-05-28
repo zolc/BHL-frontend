@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap';
 
 import * as AuthActions from './auth.actions';
 import { AuthState } from './auth.reducer';
@@ -15,12 +16,14 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this._authState$.map(authState => {
+    return this._authState$.switchMap(authState => {
       if (!authState.authenticated) {
         this.router.navigateByUrl('/auth/sign-in');
+        return Observable.of(false);
       }
 
-      return authState.authenticated;
+      return this._authState$.filter(x => !!x.accessToken)
+        .map(() => true);
     });
   }
 }

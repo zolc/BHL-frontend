@@ -19,6 +19,8 @@ import * as DashboardActions from './dashboard.actions';
 import { AuthState } from '../auth/auth.reducer';
 import { Task } from '../models/task';
 
+import { transformTask } from '../shared/transform-task';
+
 const loadDashboardTasks = gql`
   mutation SelfInfo($token: String!) {
     SelfInfo(token: $token) {
@@ -72,10 +74,7 @@ export class DashboardEffects {
 
       const data = response.data;
       const rawTasks: Task[] = data['SelfInfo']['user']['tasks'];
-      const tasksWithDate = rawTasks.map(task => Object.assign({}, task, {
-        published_date_native: new Date(task.published_date),
-        expanded: false
-      }));
+      const tasksWithDate = rawTasks.map(task => transformTask(task));
       return new DashboardActions.LoadDashboardSuccessAction(tasksWithDate);
     });
 

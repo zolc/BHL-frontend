@@ -1,0 +1,13 @@
+<div [ngSwitch]="(groupsState$ | async).loadStatus">
+  <div *ngSwitchCase="ProcessStatus.Error">Error while loading groups</div>
+  <div *ngSwitchCase="ProcessStatus.InProgress">Loading groups...</div>
+  <div *ngSwitchCase="ProcessStatus.Success">
+    <ul>
+      <li *ngFor="let group of (groupsState$ | async).groups">
+        <a [routerLink]="['/groups/group', group._id]">
+          {{ group.name }} ({{ group.uncompleted_tasks.length }} uncompleted tasks)
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
