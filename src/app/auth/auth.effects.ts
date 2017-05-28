@@ -42,15 +42,13 @@ const signUp = gql`
 
 
 const fetchSelfInfo = gql`
-  mutation SelfInfo($token: String!) {
-    SelfInfo(token: $token) {
-      user {
+  query User($token: String!) {
+    user(token: $token) {
         username
         email
         first_name
         last_name
         phone
-      }
     }
   }
 `;
@@ -108,8 +106,8 @@ export class AuthEffects {
     .ofType(AuthActions.FETCH_SELF_DATA)
     .map(toPayload)
     .switchMap((token: string) => {
-      return this.apollo.mutate({
-        mutation: fetchSelfInfo,
+      return this.apollo.query({
+        query: fetchSelfInfo,
         variables: {
           token: token
         }
@@ -117,7 +115,7 @@ export class AuthEffects {
         .catch(() => Observable.empty());
     })
     .map((response: ApolloQueryResult<{}>) => {
-      const data = response.data['SelfInfo'];
+      const data = response.data;
       return new AuthActions.FetchSelfDataSuccessAction(data['user']);
     });
 

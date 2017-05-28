@@ -22,9 +22,8 @@ import { Task } from '../models/task';
 import { transformTask } from '../shared/transform-task';
 
 const loadDashboardTasks = gql`
-  mutation SelfInfo($token: String!) {
-    SelfInfo(token: $token) {
-      user {
+  query user($token: String!) {
+    user(token: $token) {
         tasks {
           _id
           title
@@ -36,7 +35,6 @@ const loadDashboardTasks = gql`
           group {
             name
           }
-        }
       }
     }
   }
@@ -59,8 +57,8 @@ export class DashboardEffects {
   loadDashboard$: Observable<Action> = this.actions$
     .ofType(DashboardActions.LOAD_DASHBOARD)
     .switchMap(() => {
-      return this.apollo.mutate({
-        mutation: loadDashboardTasks,
+      return this.apollo.query({
+        query: loadDashboardTasks,
         variables: {
           token: this.authState.accessToken
         }
@@ -73,7 +71,7 @@ export class DashboardEffects {
       }
 
       const data = response.data;
-      const rawTasks: Task[] = data['SelfInfo']['user']['tasks'];
+      const rawTasks: Task[] = data['user']['tasks'];
       const tasksWithDate = rawTasks.map(task => transformTask(task));
       return new DashboardActions.LoadDashboardSuccessAction(tasksWithDate);
     });
