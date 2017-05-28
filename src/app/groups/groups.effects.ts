@@ -29,16 +29,12 @@ import { environment } from '../../environments/environment';
 import { transformTask } from '../shared/transform-task';
 
 const loadGroups = gql`
-  mutation SelfInfo($token: String!) {
-    SelfInfo(token: $token) {
-      user {
-        groups {
-          _id
-          name
-          uncompleted_tasks {
-            _id
-          }
-        }
+  query Group($token: String!) {
+    groups(token: $token) {
+      _id
+      name
+      uncompleted_tasks {
+        _id
       }
     }
   }
@@ -47,7 +43,7 @@ const loadGroups = gql`
 
 const loadSingleGroup = gql`
   query Group($token: String!, $_id: String!) {
-    group(token: $token, _id: $_id) {
+    groups(token: $token, _id: $_id) {
       name
       tasks {
         _id
@@ -103,8 +99,8 @@ export class GroupsEffects {
     .ofType(GroupsActions.LOAD_GROUPS)
     .map(toPayload)
     .switchMap(() => {
-      return this.apollo.mutate({
-        mutation: loadGroups,
+      return this.apollo.query({
+        query: loadGroups,
         variables: {
           token: this._authState.accessToken
         }
@@ -120,7 +116,7 @@ export class GroupsEffects {
         return response;
       }
 
-      const groups = response.data['SelfInfo']['user']['groups'];
+      const groups = response.data['groups'];
       return new GroupsActions.LoadGroupsSuccessAction(groups);
     });
 
@@ -148,7 +144,8 @@ export class GroupsEffects {
         return response;
       }
 
-      const group: Group = response.data['group'];
+      const groups: Group[] = response.data['groups'];
+      const group: Group = groups[0];
       const groupNativeTasks = Object.assign({}, group, {
         completed_tasks: group.completed_tasks.map(task => transformTask(task)),
         uncompleted_tasks: group.uncompleted_tasks.map(task => transformTask(task)),
